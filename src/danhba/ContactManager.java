@@ -18,8 +18,6 @@ public class ContactManager {
     }
 
     public void add() {
-        System.out.println("Nhap stt : ");
-        int stt = Integer.parseInt(sc.nextLine());
         System.out.println("Nhap so dien thoai : ");
         String phoneNumber = sc.nextLine();
         System.out.println("Nhap nhom : ");
@@ -35,15 +33,15 @@ public class ContactManager {
         System.out.println("Nhap dia chi email : ");
         String email = sc.nextLine();
 
-        Contact contact = new Contact(stt,phoneNumber,crew,name,gender,address,email);
+        Contact contact = new Contact(phoneNumber,crew,name,gender,address,email);
         listContact.add(contact);
         readAndWhite.writeFile(TOBI,listContact);
     }
 
-    public void remove(int stt) {
+    public void remove(String phoneNumber) {
         Contact contact = null;
         for (int i = 0; i < listContact.size(); i++) {
-            if (listContact.get(i).getStt() == stt) {
+            if (phoneNumber.equals(listContact.get(i).getPhoneNumber())) {
                 contact = listContact.get(i);
                 break;
             }
@@ -53,13 +51,12 @@ public class ContactManager {
             listContact.remove(contact);
             readAndWhite.writeFile(TOBI,listContact);
         } else {
-            System.out.printf("Stt = %d khong tim thay .\n", stt);
+            System.out.printf("khong ton tai");
         }
     }
 
     public void display(Contact contactList) {
         System.out.printf("| %3s", "");
-        System.out.printf("%-3d  | ",contactList.getStt());
         System.out.printf("%-3d  | ",contactList.getPhoneNumber());
         System.out.printf("%-3d  | ",contactList.getCrew());
         System.out.printf("%-3d  | ",contactList.getName());
@@ -69,82 +66,41 @@ public class ContactManager {
         System.out.printf("%-3d  | ",contactList.getEmail());
     }
 
-    public void edit(int stt) {
+    public void edit() {
         boolean isExit = false;
-        for (int i = 0; i < listContact.size();i++) {
-            if (stt ==(listContact.get(i).getStt())){
-                isExit = true;
-                System.out.println("Lua chon : ");
-                System.out.println("1. Sua so dien thoai :");
-                System.out.println("2. Sua nhom : ");
-                System.out.println("3. Sua ho va ten : ");
-                System.out.println("4. Sua gioi tinh : ");
-                System.out.println("5. Sua dia chi : ");
-                System.out.println("6 . Hoan thanh");
-                System.out.println("0. Ket thuc");
+        while (isExit) {
+            String number = sc.nextLine();
+            if (number.equals("")) {
+                break;
+            } else {
+                for (Contact contact : listContact ) {
+                    if (number.equals(contact.getPhoneNumber())) {
+                        isExit = false;
+                        System.out.println("Sua so dien thoai" + contact.getPhoneNumber() + "thanh");
+                        String phoneNumber = sc.nextLine();
+                        contact.setCrew(phoneNumber);
 
-                int choice;
-                boolean check = true;
-                while (check) {
-                    choice = sc.nextInt();
-                    switch (choice) {
-                        case 1:
-                            System.out.println("Sua so dien thoai " + listContact.get(i).getPhoneNumber() + " thanh ");
-                            sc.nextLine();
-                            String sdtMoi = sc.nextLine();
-                            listContact.get(i).setPhoneNumber(sdtMoi);
-                            System.out.println("So dien thoai sau khi sua ");
-                            display(listContact.get(i));
-                            break;
-                        case 2:
-                            System.out.println("Sua nhom "+ listContact.get(i).getCrew() + " thanh ");
-                            sc.nextLine();
-                            String nhomMoi = sc.nextLine();
-                            listContact.get(i).setCrew(nhomMoi);
-                            System.out.println("Nhom da sua ");
-                            display(listContact.get(i));
-                            break;
-                        case 3:
-                            System.out.println("Sua ho va ten : " + listContact.get(i).getName() + " thanh ");
-                            sc.nextLine();
-                            String tenMoi = sc.nextLine();
-                            listContact.get(i).setName(tenMoi);
-                            System.out.println("Ten da sua ");
-                            display(listContact.get(i));
-                            break;
-                        case 4:
-                            System.out.println("Sua gioi tinh : " + listContact.get(i).getGender() + " thanh ");
-                            sc.nextLine();
-                            String gioiTinhMoi = sc.nextLine();
-                            listContact.get(i).setGender(gioiTinhMoi);
-                            System.out.println("Gioi tinh da sua ");
-                            display(listContact.get(i));
-                            break;
-                        case 5:
-                            System.out.println("Sua dia chi : " + listContact.get(i).getAddress() + " thanh ");
-                            sc.nextLine();
-                            String diaChiMoi = sc.nextLine();
-                            listContact.get(i).setAddress(diaChiMoi);
-                            System.out.println("Dia chi da sua ");
-                            display(listContact.get(i));
-                            break;
-                        case 6:
-                            System.out.println(" hoan thanh !");
-                            System.out.println();
-                            sc.nextLine();
-                            check = false;
-                        case 0:
-                            System.exit(0);
-                        default:
+                        System.out.println("Sua ho va ten" + contact.getName() + "thanh");
+                        String name = sc.nextLine();
+                        contact.setName(name);
+
+                        System.out.println("Sua gioi tinh" + contact.getGender() + "thanh");
+                        String gender = sc.nextLine();
+                        contact.setGender(gender);
+
+                        System.out.println("Sua nhom" + contact.getCrew() + "thanh");
+                        String crew = sc.nextLine();
+                        contact.setCrew(crew);
+
+                        System.out.println("Sua dia chi" + contact.getAddress() + "thanh");
+                        String address = sc.nextLine();
+                        contact.setAddress(address);
+
                     }
                 }
             }
         }
-        if (!isExit) {
-            System.out.printf("Stt =%d khong tim thay .\n", stt);
-        } else {
-            readAndWhite.writeFile(TOBI,listContact);
-        }
+
     }
 
     public boolean checkKey(String key , String input) {
@@ -189,7 +145,6 @@ public class ContactManager {
 
 
         for (Contact contactList : searchContact) {
-            System.out.printf("%-3d  | ", contactList.getStt());
             System.out.printf("%-3d  | ", contactList.getPhoneNumber());
             System.out.printf("%-3d  | ", contactList.getCrew());
             System.out.printf("%-3d  | ", contactList.getName());
@@ -222,7 +177,6 @@ public class ContactManager {
 
         for (Contact list1 : listContact) {
             System.out.printf("|%3s", "");
-            System.out.printf("%-3d  |  ", list1.getStt());
             System.out.printf("%-50s  |  ", list1.getPhoneNumber());
             System.out.printf("%-10s  |  ", list1.getCrew());
             System.out.printf("%-18s  |  ", list1.getName());

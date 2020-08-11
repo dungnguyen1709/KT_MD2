@@ -1,7 +1,6 @@
 package danhba;
 
 public class Contact {
-        private int stt;
         private String phoneNumber;
         private String crew;
         private String name;
@@ -13,8 +12,7 @@ public class Contact {
         public Contact() {
         }
 
-    public Contact(int stt, String phoneNumber, String crew, String name, String gender, String address, String email) {
-        this.stt = stt;
+    public Contact( String phoneNumber, String crew, String name, String gender, String address, String email) {
         this.phoneNumber = phoneNumber;
         this.crew = crew;
         this.name = name;
@@ -24,13 +22,6 @@ public class Contact {
         this.email = email;
     }
 
-    public int getStt() {
-        return stt;
-    }
-
-    public void setStt(int stt) {
-        this.stt = stt;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -91,7 +82,6 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "stt=" + stt +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", crew='" + crew + '\'' +
                 ", name='" + name + '\'' +
