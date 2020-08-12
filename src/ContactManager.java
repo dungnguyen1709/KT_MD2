@@ -35,6 +35,7 @@ public class ContactManager {
         Contact contact = new Contact(phoneNumber, crew, name, gender, address, dateOfBirth, email);
         arrayList = readContact();
         arrayList.add(contact);
+        clearContact();
 
         for (Contact contact1 : arrayList) {
             writeContact(contact1);
@@ -48,7 +49,7 @@ public class ContactManager {
         System.out.println("Nhập số điện thoại : ");
         String phoneNumber = sc.nextLine();
         arrayList = readContact();
-        //clearContact();
+        clearContact();
         for (Contact contact : arrayList) {
             if (contact.getPhoneNumber().equals(phoneNumber)) {
                 editContact(contact);
@@ -90,7 +91,7 @@ public class ContactManager {
         String phoneNumber = sc.nextLine();
         arrayList = readContact();
         ArrayList<Contact> arrayList1 = new ArrayList<>();
-
+        clearContact();
         for (Contact contact : arrayList) {
             if (contact.getPhoneNumber().equals(phoneNumber)) {
                 checked = true;
@@ -140,6 +141,14 @@ public class ContactManager {
                 + "-" + contact.getGender() + "-" + contact.getAddress() + "-" + contact.getDateOfBirth()
                 + "-" + contact.getEmail() + "\n";
         bufferedWriter.write(str1);
+        bufferedWriter.close();
+    }
+
+    public void clearContact() throws IOException {
+        FileWriter fileWriter = new FileWriter("contact.csv");
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        String st2 = "";
+        bufferedWriter.write(st2);
         bufferedWriter.close();
     }
 }
