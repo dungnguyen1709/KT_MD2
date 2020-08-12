@@ -43,7 +43,7 @@ public class ContactManager {
         System.out.println("Thêm thành công ");
     }
 
-    public boolean updateContact() throws IOException {
+    public void updateContact() throws IOException {
 
         boolean check = false;
         System.out.println("Nhập số điện thoại : ");
@@ -54,10 +54,13 @@ public class ContactManager {
             if (contact.getPhoneNumber().equals(phoneNumber)) {
                 editContact(contact);
                 check = true;
+                System.out.println("Cập nhật hoàn tất");
             }
             writeContact(contact);
         }
-        return check;
+      if (!check) {
+          System.out.println("không tìm thấy ");
+      }
     }
 
     public void editContact(Contact contact) throws IOException {
@@ -84,7 +87,7 @@ public class ContactManager {
         contact.setEmail(email);
     }
 
-    public boolean removeContact() throws IOException {
+    public void removeContact() throws IOException {
 
         boolean checked = false;
         System.out.println("Nhập số điện thoại : ");
@@ -95,6 +98,7 @@ public class ContactManager {
         for (Contact contact : arrayList) {
             if (contact.getPhoneNumber().equals(phoneNumber)) {
                 checked = true;
+                System.out.println("Đã xóa");
             } else {
                 arrayList1.add(contact);
             }
@@ -102,7 +106,9 @@ public class ContactManager {
         for (Contact contact : arrayList1) {
             writeContact(contact);
         }
-        return checked;
+        if (!checked) {
+            System.out.println("Không có trong danh bạ");
+        }
     }
 
     public void searchContact() throws IOException {

@@ -29,18 +29,10 @@ public class Menu {
                         contactManager.addContact();
                         break;
                     case 3:
-                       if (contactManager.updateContact()) {
-                           System.out.println("Sửa thành công");
-                       } else {
-                           System.out.println("Không có trong danh bạ");
-                       }
+                       contactManager.updateContact();
                        break;
                     case 4:
-                        if (contactManager.removeContact()) {
-                            System.out.println("Xóa thành công");
-                        } else {
-                            System.out.println("Không có trong danh bạ");
-                        }
+                        contactManager.removeContact();
                         break;
                     case 5:
                         contactManager.searchContact();
